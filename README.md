@@ -33,3 +33,9 @@ test5 - > productId:35455 brandId: 1 applicationDate: 2020-06-16 21:00:00
 For these test you can use OpenApi swagger UI : http://localhost:8080/e-commerce/swagger-ui/index.html#/
 
 Or create a new request on tool like PostMan : http://localhost:8080/e-commerce/validateRate?productId=35455&brandId=1&applicationDate=2020-06-14 10:00:00
+
+### Considerations
+
+On table PRICES, I create a unique primary key.
+
+For the response added new field final Price to show up if needed.
