@@ -1,13 +1,11 @@
 package com.test.validateprices.microservice.repository;
 
-import com.test.validateprices.microservice.MicroserviceSpringbootH2Application;
 import com.test.validateprices.microservice.model.Prices;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,8 +15,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -30,6 +26,7 @@ class PricesRepositoryTest {
 
     @Test
     void findRateByApplicationDate() throws ParseException {
+        //GIVEN
         Prices price = new Prices();
         price.setPkId(0L);
         price.setBrandId(1L);
@@ -45,6 +42,9 @@ class PricesRepositoryTest {
         price.setCurrency("EUR");
         pricesRepository.save(price);
         date = dateFormat.parse("2020-06-14 10:00:00");
+
+        //THEN
+
         List<Prices> list = pricesRepository.findRateByApplicationDate(35455L,1L,new Timestamp(date.getTime()));
         Assert.assertNotNull(list);
     }

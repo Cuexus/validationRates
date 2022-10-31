@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Getter
@@ -17,6 +16,8 @@ public class ValidationRateResponse {
     private int priceList;
     private Timestamp startDate;
     private Timestamp endDate;
+    private Double price;
+    private String currency;
     private String finalPrice;
 
 }

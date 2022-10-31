@@ -1,13 +1,11 @@
 package com.test.validateprices.microservice.controller;
 
 import com.test.validateprices.microservice.Constants.ApiConstants;
-import com.test.validateprices.microservice.bean.ValidationRateRequest;
 import com.test.validateprices.microservice.bean.ValidationRateResponse;
 import com.test.validateprices.microservice.exception.RateError;
 import com.test.validateprices.microservice.exception.ValidationRatesException;
 import com.test.validateprices.microservice.model.Prices;
-import com.test.validateprices.microservice.service.PricesService;
-import io.swagger.v3.oas.annotations.Operation;
+import com.test.validateprices.microservice.service.impl.PricesServiceImpl;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,17 +17,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @RestController
 @Tag(name = ApiConstants.TAG_RATE, description = ApiConstants.DESCRIPTION_RATE)
 public class PricesController {
     @Autowired
-    private PricesService pricesService;
+    private PricesServiceImpl pricesService;
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation",

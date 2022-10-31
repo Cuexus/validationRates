@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Setter
@@ -25,8 +24,4 @@ public class Prices {
     private int priority;
     private Double price;
     private String currency;
-
-    public String finalPrice() {
-        return this.price + " " + this.currency;
-    }
 }

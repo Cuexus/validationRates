@@ -3,6 +3,7 @@ package com.test.validateprices.microservice.service;
 import com.test.validateprices.microservice.bean.ValidationRateResponse;
 import com.test.validateprices.microservice.model.Prices;
 import com.test.validateprices.microservice.repository.PricesRepository;
+import com.test.validateprices.microservice.service.impl.PricesServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,13 +27,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class PricesServiceTest {
 
     @Autowired
-    private PricesService pricesService;
+    private PricesServiceImpl pricesService;
 
     @Autowired
     private PricesRepository pricesRepository;
 
     @BeforeEach
     void populatePrices() throws ParseException {
+        //POPULATE DATA FOR TEST
         Prices price = new Prices();
         price.setPkId(0L);
         price.setBrandId(1L);
@@ -87,12 +88,53 @@ class PricesServiceTest {
     }
 
     @Test
-    void getRatesByApplicationDate() throws ParseException {
-
+    void test1_2020_06_14_10_00_00() throws ParseException {
+        //GIVEN productId:35455 brandId: 1 applicationDate: 2020-06-14 10:00:00
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d HH:mm:ss");
         Date date = dateFormat.parse("2020-06-14 10:00:00");
-        //ValidationRateResponse response = pricesService.getRatesByApplicationDate(35455L,1L,new Timestamp(date.getTime()));
-        List<Prices> list = pricesRepository.findRateByApplicationDate(35455L,1L,new Timestamp(date.getTime()));
-        Assert.assertNotNull(list);
+        //WHEN
+        ValidationRateResponse response = pricesService.getRatesByApplicationDate(35455L,1L,new Timestamp(date.getTime()));
+        //THEN expected price: 35.5 EUR
+        Assert.assertEquals("35.5 EUR",response.getFinalPrice());
+    }
+    @Test
+    void test2_2020_06_14_16_00_00() throws ParseException {
+        //GIVEN productId:35455 brandId: 1 applicationDate: 2020-06-14 16:00:00
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d HH:mm:ss");
+        Date date = dateFormat.parse("2020-06-14 16:00:00");
+        //WHEN
+        ValidationRateResponse response = pricesService.getRatesByApplicationDate(35455L,1L,new Timestamp(date.getTime()));
+        //THEN expected price: 25.45 EUR
+        Assert.assertEquals("25.45 EUR",response.getFinalPrice());
+    }
+    @Test
+    void test3_2020_06_14_21_00_00() throws ParseException {
+        //GIVEN productId:35455 brandId: 1 applicationDate: 2020-06-14 21:00:00
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d HH:mm:ss");
+        Date date = dateFormat.parse("2020-06-14 21:00:00");
+        //WHEN
+        ValidationRateResponse response = pricesService.getRatesByApplicationDate(35455L,1L,new Timestamp(date.getTime()));
+        //THEN expected price: 35.5 EUR
+        Assert.assertEquals("35.5 EUR",response.getFinalPrice());
+    }
+    @Test
+    void test4_2020_06_15_10_00_00() throws ParseException {
+        //GIVEN productId:35455 brandId: 1 applicationDate: 2020-06-15 10:00:00
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d HH:mm:ss");
+        Date date = dateFormat.parse("2020-06-15 10:00:00");
+        //WHEN
+        ValidationRateResponse response = pricesService.getRatesByApplicationDate(35455L,1L,new Timestamp(date.getTime()));
+        //THEN expected price: 30.5 EUR
+        Assert.assertEquals("30.5 EUR",response.getFinalPrice());
+    }
+    @Test
+    void test5_2020_06_16_21_00_00() throws ParseException {
+        //GIVEN productId:35455 brandId: 1 applicationDate: 2020-06-16 21:00:00
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-d HH:mm:ss");
+        Date date = dateFormat.parse("2020-06-16 21:00:00");
+        //WHEN
+        ValidationRateResponse response = pricesService.getRatesByApplicationDate(35455L,1L,new Timestamp(date.getTime()));
+        //THEN expected price: 35.5 EUR
+        Assert.assertEquals("38.95 EUR",response.getFinalPrice());
     }
 }

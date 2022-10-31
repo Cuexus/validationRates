@@ -16,7 +16,9 @@ public interface PricesMapper {
     @Mapping(target="priceList", source="prices.priceList")
     @Mapping(target="startDate", source="prices.startDate")
     @Mapping(target="endDate", source="prices.endDate")
-    @Mapping(target="finalPrice", expression = "java(prices.getPrice() +  prices.getCurrency())")
+    @Mapping(target="price", source="prices.price")
+    @Mapping(target="currency", source="prices.currency")
+    @Mapping(target="finalPrice", expression = "java(prices.getPrice()+ \" \" +prices.getCurrency())")
     ValidationRateResponse pricesToValidationRateResponse  (Prices prices);
 
 }

@@ -4,7 +4,7 @@ import com.test.validateprices.microservice.bean.ValidationRateResponse;
 import com.test.validateprices.microservice.exception.RateError;
 import com.test.validateprices.microservice.exception.ValidationRatesException;
 import com.test.validateprices.microservice.model.Prices;
-import com.test.validateprices.microservice.service.PricesService;
+import com.test.validateprices.microservice.service.impl.PricesServiceImpl;
 import org.jeasy.random.EasyRandom;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class PricesControllerTest {
     PricesController pricesControllerTest;
 
     @Mock
-    PricesService pricesService;
+    PricesServiceImpl pricesService;
 
     EasyRandom er = new EasyRandom();
 
@@ -51,7 +51,9 @@ public class PricesControllerTest {
                 .priceList(finalPrice.getPriceList())
                 .startDate(finalPrice.getStartDate())
                 .endDate(finalPrice.getEndDate())
-                .finalPrice(finalPrice.finalPrice()).build();
+                .price(finalPrice.getPrice())
+                .currency(finalPrice.getCurrency())
+                .finalPrice(finalPrice.getPrice()+finalPrice.getCurrency()).build();
         //WHEN
         Mockito.when(pricesService.getRatesByApplicationDate(productId, brandId, time)).thenReturn(response);
 
@@ -75,7 +77,9 @@ public class PricesControllerTest {
                 .priceList(finalPrice.getPriceList())
                 .startDate(finalPrice.getStartDate())
                 .endDate(finalPrice.getEndDate())
-                .finalPrice(finalPrice.finalPrice()).build();
+                .price(finalPrice.getPrice())
+                .currency(finalPrice.getCurrency())
+                .finalPrice(finalPrice.getPrice()+finalPrice.getCurrency()).build();
         //WHEN
         Mockito.when(pricesService.getRatesByApplicationDate(productId, brandId, time)).thenThrow(new ValidationRatesException(er.nextObject(RateError.class)));
 
