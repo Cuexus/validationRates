@@ -3,6 +3,7 @@ package com.test.validateprices.microservice.service;
 import com.test.validateprices.microservice.bean.ValidationRateResponse;
 import com.test.validateprices.microservice.exception.RateError;
 import com.test.validateprices.microservice.exception.ValidationRatesException;
+import com.test.validateprices.microservice.mapper.PricesMapper;
 import com.test.validateprices.microservice.model.Prices;
 import com.test.validateprices.microservice.repository.PricesRepository;
 import com.test.validateprices.microservice.util.PricesUtil;
@@ -25,11 +26,11 @@ public class PricesService {
         logger.log(Level.parse("INFO"),"getRatesByApplicationDate("+productId+","+brandId+","+applicationDate+") start()");
         List<Prices> pricesList = pricesRepository.findRateByApplicationDate(productId,brandId,applicationDate);
         if(pricesList.size() == 0){
-            throw new ValidationRatesException( new RateError(400, "Bad Request",
+            throw new ValidationRatesException( new RateError(500, "Internat Server Error",
                     "Operation not allowed"));
         }
         Prices finalPrice = PricesUtil.getProirityRate(pricesList);
-        ValidationRateResponse response = PricesUtil.mappingRatesResponse(finalPrice);
+        ValidationRateResponse response = PricesMapper.INSTANCIA.pricesToValidationRateResponse(finalPrice);
 
         logger.log(Level.parse("INFO"),"getRatesByApplicationDate("+productId+","+brandId+","+applicationDate+") finished()");
 

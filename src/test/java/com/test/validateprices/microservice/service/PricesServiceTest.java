@@ -48,17 +48,42 @@ class PricesServiceTest {
         price.setPrice(35.50);
         price.setCurrency("EUR");
         pricesRepository.save(price);
-        price.setPkId(0L);
+        price.setPkId(1L);
         price.setBrandId(1L);
-        date = dateFormat.parse("2020-06-14 00:00:00");
+        date = dateFormat.parse("2020-06-14 15:00:00");
+        price.setStartDate(new Timestamp(date.getTime()));
+        date = dateFormat.parse("2020-06-14 18:30:00");
+        price.setEndDate(new Timestamp(date.getTime()));
+        price.setPriceList(2);
+        price.setProductId(35455L);
+        price.setPriority(1);
+        price.setPrice(25.45);
+        price.setCurrency("EUR");
+        pricesRepository.save(price);
+        price.setPkId(2L);
+        price.setBrandId(1L);
+        date = dateFormat.parse("2020-06-15 00:00:00");
+        price.setStartDate(new Timestamp(date.getTime()));
+        date = dateFormat.parse("2020-06-15 11:00:00");
+        price.setEndDate(new Timestamp(date.getTime()));
+        price.setPriceList(3);
+        price.setProductId(35455L);
+        price.setPriority(1);
+        price.setPrice(30.50);
+        price.setCurrency("EUR");
+        pricesRepository.save(price);
+        price.setPkId(3L);
+        price.setBrandId(1L);
+        date = dateFormat.parse("2020-06-15 16:00:00");
         price.setStartDate(new Timestamp(date.getTime()));
         date = dateFormat.parse("2020-12-31 23:59:59");
         price.setEndDate(new Timestamp(date.getTime()));
-        price.setPriceList(1);
+        price.setPriceList(4);
         price.setProductId(35455L);
-        price.setPriority(0);
-        price.setPrice(35.50);
+        price.setPriority(1);
+        price.setPrice(38.95);
         price.setCurrency("EUR");
+        pricesRepository.save(price);
     }
 
     @Test

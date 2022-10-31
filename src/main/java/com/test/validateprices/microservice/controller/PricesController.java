@@ -44,7 +44,7 @@ public class PricesController {
         ValidationRateResponse response = pricesService.getRatesByApplicationDate(productId,brandId,applicationDate);
         return new ResponseEntity<>(response,HttpStatus.OK);
         } catch (ValidationRatesException e) {
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
